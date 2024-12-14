@@ -1,0 +1,145 @@
+import { Link } from "react-router-dom";
+import { Table } from "antd";
+import { Flex, Layout } from "antd";
+const { Header, Footer, Sider, Content } = Layout;
+export const ClassifTree = () => {
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      render: (text) => <a>{text}</a>,
+    },
+    {
+      title: "Cash Assets",
+      className: "column-money",
+      dataIndex: "money",
+      align: "right",
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+    },
+  ];
+  const data = [
+    {
+      key: "1",
+      name: "John Brown",
+      money: "￥300,000.00",
+      address: "New York No. 1 Lake Park",
+    },
+    {
+      key: "2",
+      name: "Jim Green",
+      money: "￥1,256,000.00",
+      address: "London No. 1 Lake Park",
+    },
+    {
+      key: "3",
+      name: "Joe Black",
+      money: "￥120,000.00",
+      address: "Sydney No. 1 Lake Park",
+    },
+  ];
+  const siderStyle = {
+    textAlign: "center",
+    lineHeight: "120px",
+    color: "#fff",
+    backgroundColor: "#1677ff",
+  };
+  const headerStyle = {
+    textAlign: "center",
+    color: "#fff",
+    height: 64,
+    paddingInline: 48,
+    lineHeight: "64px",
+    backgroundColor: "#4096ff",
+  };
+  const footerStyle = {
+    textAlign: "center",
+    color: "#fff",
+    backgroundColor: "#4096ff",
+  };
+  const layoutStyle = {
+    borderRadius: 8,
+    overflow: "hidden",
+    width: "calc(50% - 8px)",
+    maxWidth: "100%",
+  };
+  return (
+    <>
+      <Flex gap="middle" wrap>
+        <Layout style={layoutStyle}>
+          <Header style={headerStyle}>Дерево классификации</Header>
+          <Layout>
+            <Sider width="25%" style={siderStyle}>
+              <Link to="about" style={{ backgroundColor: "purple" }}>
+                About Us
+              </Link>
+            </Sider>
+            <Content>
+              <Table
+                columns={columns}
+                dataSource={data}
+                bordered
+                title={() => "Header"}
+                footer={() => "Footer"}
+                size="middle"
+              />
+            </Content>
+          </Layout>
+          <Footer style={footerStyle}>Footer</Footer>
+        </Layout>
+      </Flex>
+    </>
+  );
+};
+
+
+ {/* <Form.Item
+            key={"short_name"}
+            name={"short_name"}
+            label={"short_name"}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            key="full_name"
+            name="full_name"
+            label="full_name"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <Input />
+          </Form.Item>
+          <Form.Item
+            key="id_unit"
+            name="id_unit"
+            label="id_unit"
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item>
+          <Form.Item
+            key={"parent_class_id"}
+            name={"parent_class_id"}
+            label={"parent_class_id"}
+            rules={[
+              {
+                required: true,
+              },
+            ]}
+          >
+            <InputNumber />
+          </Form.Item> */}
