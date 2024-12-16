@@ -94,16 +94,11 @@ export const ProductBodyContent = ({ setCollapsed, collapsed }) => {
         ),
       });
       if (confirmed) {
-        const updatedFetchData = fetchData.dataSource.map((value, index) => {
-          if (value["id_product"] === productId) {
-            const short_name = "copy_" + value["short_name"];
-            const full_name = "copy_" + value["full_name"];
-            console.log(short_name);
-            return { short_name: short_name, full_name: full_name, ...value };
-          }
-          return value;
-        });
-        const resp = await copyProductById(productId, updatedFetchData);
+        let copyRow = productRow;
+        copyRow["short_name"] = "copy_" + copyRow["short_name"];
+        copyRow["full_name"] = "copy_" + copyRow["full_name"];
+        delete copyRow.id_product;
+        const resp = await addProduct(copyRow);
         if (resp.status !== 200) {
           openNotificationWithIcon(resp.message);
         } else {
