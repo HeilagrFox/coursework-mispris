@@ -198,6 +198,8 @@ export const BodyContent = ({ setCollapsed, collapsed }) => {
         onFinish={onFinishUpdate}
         classificationRow={classificationRow}
         form={form}
+        requiredFields={["short_name", "full_name"]}
+        inputNotNumberFields={["short_name", "full_name"]}
       />
     </>
   );

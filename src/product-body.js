@@ -180,7 +180,7 @@ export const ProductBodyContent = ({ setCollapsed, collapsed }) => {
         fetchData={fetchData}
         onFinish={onFinishAdd}
         requiredFields={["short_name", "full_name"]}
-        inputNumberFields={["short_name", "full_name"]}
+        inputNotNumberFields={["short_name", "full_name"]}
       />
       <DrawerWrapper
         isOpenDrawer={isOpenDrawerUpdate}
@@ -188,6 +188,8 @@ export const ProductBodyContent = ({ setCollapsed, collapsed }) => {
         fetchData={fetchData}
         onFinish={onFinishUpdate}
         classificationRow={productRow}
+        requiredFields={["short_name", "full_name"]}
+        inputNotNumberFields={["short_name", "full_name"]}
         form={form}
       />
     </>
