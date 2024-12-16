@@ -51,8 +51,22 @@ export async function deleteClassificationById(classificationId) {
   const apiUrl = "http://localhost:5000/classification/" + classificationId;
 
   try {
-    const response = await axios.delete(apiUrl, classificationId);
-    return response; // Возвращаем данные, если успешный запрос
+    const response = await axios.delete(apiUrl);
+    return response;
+  } catch (error) {
+    console.error("Ошибка при отправке данных:", error);
+    return error;
+  }
+}
+
+export async function updateClassificationById(
+  classificationId,
+  classificationData
+) {
+  const apiUrl = "http://localhost:5000/classification/" + classificationId;
+  try {
+    const response = await axios.put(apiUrl, classificationData);
+    return response;
   } catch (error) {
     console.error("Ошибка при отправке данных:", error);
     return error;

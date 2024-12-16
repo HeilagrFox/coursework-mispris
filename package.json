@@ -1,7 +1,7 @@
 {
   "name": "coursework-mispris",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
   "dependencies": {
     "antd": "^5.21.0",
     "axios": "^1.7.9",
