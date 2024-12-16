@@ -1,9 +1,10 @@
 import React from "react";
 import * as ReactDOM from "react-dom/client";
 import "./index.css";
-import { Classification } from "./classification";
-
+import { BodyContent } from "./classification-body";
+import { ProductBodyContent } from "./product-body";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { FlexWrapper } from "./flex-main-wrapper";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 const future = {
   v7_startTransition: true,
@@ -17,12 +18,12 @@ const router = createBrowserRouter(
   [
     {
       path: "/",
-      element: <Classification />,
+      element: <FlexWrapper BodyContent={<BodyContent />} />,
     },
-    // {
-    //   path: "about",
-    //   element: <App />,
-    // },
+    {
+      path: "/product",
+      element: <FlexWrapper BodyContent={<ProductBodyContent />} />,
+    },
   ],
   { future }
 );

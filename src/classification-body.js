@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Flex, Layout, theme, Form, Button } from "antd";
+import { Flex, Layout, theme, Form } from "antd";
 
 import {
   getClassificationTree,
@@ -9,16 +9,21 @@ import {
   deleteClassificationById,
   updateClassificationById,
 } from "./queries";
-import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+// import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
 
 import { useNotification } from "./notification";
 
 import { DrawerWrapper } from "./drawer-wrapper";
 import { TableWrapper } from "./table-wrapper";
-import { EditButton, DeleteButton, AddButton } from "./base-buttons";
+import {
+  EditButton,
+  DeleteButton,
+  AddButton,
+  MenuButton,
+} from "./base-buttons";
 const { Header, Content } = Layout;
-const BodyContent = ({ setCollapsed, collapsed }) => {
+export const BodyContent = ({ setCollapsed, collapsed }) => {
   const { contextHolder, openNotificationWithIcon } = useNotification();
   const [fetchDataTree, setFetchDataTree] = useState({
     loading: true,
@@ -50,6 +55,7 @@ const BodyContent = ({ setCollapsed, collapsed }) => {
           setId={setClassificationId}
           setRow={setClassificationRow}
           isRowSelection={true}
+          key_id={"id_classification"}
           title="Классификации"
         />
       ),
@@ -128,7 +134,8 @@ const BodyContent = ({ setCollapsed, collapsed }) => {
           }}
         >
           <Flex gap="middle" wrap>
-            <Button
+            <MenuButton collapsed={collapsed} setCollapsed={setCollapsed} />
+            {/* <Button
               type="text"
               icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
               onClick={() => setCollapsed(!collapsed)}
@@ -137,7 +144,7 @@ const BodyContent = ({ setCollapsed, collapsed }) => {
                 width: 64,
                 height: 64,
               }}
-            />
+            /> */}
             <AddButton
               onClick={() => {
                 setOpenDrawer(true);
@@ -181,6 +188,8 @@ const BodyContent = ({ setCollapsed, collapsed }) => {
         setOpenDrawer={setOpenDrawer}
         fetchData={fetchData}
         onFinish={onFinishAdd}
+        requiredFields={["short_name", "full_name"]}
+        inputNotNumberFields={["short_name", "full_name"]}
       />
       <DrawerWrapper
         isOpenDrawer={isOpenDrawerForChange}
@@ -193,4 +202,3 @@ const BodyContent = ({ setCollapsed, collapsed }) => {
     </>
   );
 };
-export default BodyContent;

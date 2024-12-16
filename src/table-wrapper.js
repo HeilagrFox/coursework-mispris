@@ -5,6 +5,7 @@ export const TableWrapper = ({
   setId,
   setRow,
   isRowSelection = false,
+  key_id,
   title = "Table",
 }) => {
   return (
@@ -20,7 +21,7 @@ export const TableWrapper = ({
                   type: "radio",
                   onChange: (selectedRowKeys, selectedRows) => {
                     console.debug(`selectedRow : ${selectedRows}`);
-                    setId(selectedRows[0].id_classification);
+                    setId(selectedRows[0][key_id]);
                     setRow(selectedRows[0]);
                   },
                 }

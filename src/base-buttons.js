@@ -1,6 +1,6 @@
 import { Button } from "antd";
-
-export const EditButton = ({ onClick, isDisabled }) => {
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+export const EditButton = ({ onClick = () => {}, isDisabled }) => {
   return (
     <Button
       className="primary"
@@ -9,12 +9,12 @@ export const EditButton = ({ onClick, isDisabled }) => {
       disabled={isDisabled}
     >
       {" "}
-      Изменить классификацию{" "}
+      Изменить{" "}
     </Button>
   );
 };
 
-export const AddButton = ({ onClick }) => {
+export const AddButton = ({ onClick = () => {} }) => {
   return (
     <Button
       className="primary"
@@ -22,12 +22,12 @@ export const AddButton = ({ onClick }) => {
       onClick={onClick}
     >
       {" "}
-      Добавить классификацию{" "}
+      Добавить{" "}
     </Button>
   );
 };
 
-export const DeleteButton = ({ onClick, isDisabled }) => {
+export const DeleteButton = ({ onClick = () => {}, isDisabled }) => {
   return (
     <Button
       className="primary"
@@ -36,7 +36,22 @@ export const DeleteButton = ({ onClick, isDisabled }) => {
       disabled={isDisabled}
     >
       {" "}
-      Удалить классификацию{" "}
+      Удалить{" "}
     </Button>
+  );
+};
+
+export const MenuButton = ({ collapsed, setCollapsed }) => {
+  return (
+    <Button
+      type="text"
+      icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+      onClick={() => setCollapsed(!collapsed)}
+      style={{
+        fontSize: "16px",
+        width: 64,
+        height: 64,
+      }}
+    />
   );
 };

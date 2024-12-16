@@ -15,7 +15,9 @@ export const FlexWrapper = ({ BodyContent }) => {
       <Layout style={layoutStyle}>
         <Layout>
           <BaseSider collapsed={collapsed} />
-          {cloneElement(BodyContent, { collapsed, setCollapsed })}
+          {BodyContent
+            ? cloneElement(BodyContent, { collapsed, setCollapsed })
+            : null}
         </Layout>
       </Layout>
     </Flex>

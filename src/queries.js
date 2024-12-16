@@ -72,3 +72,66 @@ export async function updateClassificationById(
     return error;
   }
 }
+
+export async function getProduct(setFetchData) {
+  const apiUrl = "http://localhost:5000/product";
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      const fetchData = response.data;
+      setFetchData({
+        loading: false,
+        dataSource: fetchData.data,
+        columns: fetchData.columns,
+      });
+    })
+    .catch((error) => {
+      console.error("Ошибка при получении данных:", error);
+      setFetchData({ loading: true, dataSource: [], columns: [] });
+    });
+}
+
+export async function addProduct(productData) {
+  const apiUrl = "http://localhost:5000/product";
+  try {
+    const response = await axios.post(apiUrl, productData);
+    return response; // Возвращаем данные, если успешный запрос
+  } catch (error) {
+    console.error("Ошибка при отправке данных:", error);
+    return error;
+  }
+}
+
+export async function deleteProductById(productId) {
+  const apiUrl = "http://localhost:5000/product/" + productId;
+
+  try {
+    const response = await axios.delete(apiUrl);
+    return response;
+  } catch (error) {
+    console.error("Ошибка при отправке данных:", error);
+    return error;
+  }
+}
+
+export async function updateProductById(productId, productData) {
+  const apiUrl = "http://localhost:5000/product/" + productId;
+  try {
+    const response = await axios.put(apiUrl, productData);
+    return response;
+  } catch (error) {
+    console.error("Ошибка при отправке данных:", error);
+    return error;
+  }
+}
+
+export async function copyProductById(productId, productData) {
+  const apiUrl = "http://localhost:5000/product/" + productId;
+  try {
+    const response = await axios.post(apiUrl, productData);
+    return response;
+  } catch (error) {
+    console.error("Ошибка при отправке данных:", error);
+    return error;
+  }
+}

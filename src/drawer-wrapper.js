@@ -7,6 +7,8 @@ export const DrawerWrapper = ({
   onFinish,
   classificationRow,
   form,
+  requiredFields,
+  inputNotNumberFields,
 }) => {
   useEffect(() => {
     if (form) {
@@ -43,16 +45,15 @@ export const DrawerWrapper = ({
                     // }
                     rules={[
                       {
-                        required:
-                          value.title === "short_name" ||
-                          value.title === "full_name"
-                            ? true
-                            : false,
+                        required: requiredFields?.some(
+                          (field) => field.toLowerCase() === value.title
+                        ),
                       },
                     ]}
                   >
-                    {value.title === "short_name" ||
-                    value.title === "full_name" ? (
+                    {inputNotNumberFields?.some(
+                      (field) => field.toLowerCase() === value.title
+                    ) ? (
                       <Input />
                     ) : (
                       <InputNumber

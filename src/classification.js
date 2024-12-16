@@ -1,4 +1,4 @@
-import BodyContent from "./classification-body";
+import { BodyContent } from "./classification-body";
 import { FlexWrapper } from "./flex-main-wrapper";
 export const Classification = () => {
   return (
