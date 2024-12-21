@@ -36,7 +36,7 @@ export const SpecBodyContent = ({ setCollapsed, collapsed }) => {
     },
     {
       key: "2",
-      label: "Дерево специйикаций по id продукта",
+      label: "Дерево спецификаций по id продукта",
       children: (
         <>
           <Space direction="vertical" size="middle" style={{ display: "flex" }}>

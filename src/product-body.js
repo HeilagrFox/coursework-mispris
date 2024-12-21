@@ -50,17 +50,13 @@ export const ProductBodyContent = ({ setCollapsed, collapsed }) => {
       const response = await deleteProductById(productId);
       if (response.status === 200) {
         getProduct(setFetchData);
-        openNotificationWithIcon(
-          "Классификация была успешно удалена!",
-          "success"
-        );
+        openNotificationWithIcon("Продукт был успешно удален!", "success");
       } else {
         openNotificationWithIcon(response.message);
       }
     }
   }
   async function onFinishUpdate(data) {
-    console.log(data);
     const resp = await updateProductById(productId, data);
     if (resp.status !== 200) {
       openNotificationWithIcon(resp.message);

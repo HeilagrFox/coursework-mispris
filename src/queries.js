@@ -167,7 +167,7 @@ export async function getIdProducts(setListIdProduct) {
             label: input_value.id_product.toString(),
           };
         });
-        console.log("fetch", fetchData);
+
         setListIdProduct({
           loading: false,
           options: formattedData,
@@ -206,4 +206,48 @@ export async function addSpec(specData) {
     console.error("Ошибка при отправке данных:", error);
     return error;
   }
+}
+
+export async function getIdСlassif(setListIdClassif) {
+  const apiUrl = "http://localhost:5000/classification/id_classifications";
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      let fetchData = response.data;
+      if (fetchData.data.length !== 0) {
+        const formattedData = fetchData.data.map((input_value, index) => {
+          return {
+            value: input_value.id_classification,
+            label: input_value.id_classification,
+          };
+        });
+
+        setListIdClassif({
+          loading: false,
+          options: formattedData,
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Ошибка при получении данных:", error);
+      setListIdClassif({ loading: true, options: [] });
+    });
+}
+export async function getSummaryRates(setFetchData, classifId) {
+  const apiUrl =
+    "http://localhost:5000/classification/summary_rates/" + classifId;
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      const fetchData = response.data;
+      setFetchData({
+        loading: false,
+        dataSource: fetchData.data,
+        columns: fetchData.columns,
+      });
+    })
+    .catch((error) => {
+      console.error("Ошибка при получении данных:", error);
+      setFetchData({ loading: false, dataSource: [], columns: [] });
+    });
 }

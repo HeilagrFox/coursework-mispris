@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import { Flex, Layout, theme, Form } from "antd";
+import { Flex, Layout, theme, Form, Select, Space } from "antd";
 
 import {
   getClassificationTree,
@@ -8,6 +8,8 @@ import {
   addClassification,
   deleteClassificationById,
   updateClassificationById,
+  getIdСlassif,
+  getSummaryRates,
 } from "./queries";
 // import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import { Tabs } from "antd";
@@ -39,10 +41,20 @@ export const BodyContent = ({ setCollapsed, collapsed }) => {
   const [isOpenDrawerForChange, setOpenDrawerUpdate] = useState(false);
   const [classificationId, setClassificationId] = useState();
   const [classificationRow, setClassificationRow] = useState({});
+  const [standardData, setStandardData] = useState({
+    loading: false,
+    dataSource: [],
+    columns: [],
+  });
+  const [ListIdClassif, setListIdClassif] = useState({
+    loading: true,
+    options: [],
+  });
   const [form] = Form.useForm();
   useEffect(() => {
     getClassification(setFetchData);
     getClassificationTree(setFetchDataTree);
+    getIdСlassif(setListIdClassif);
   }, []);
 
   const items = [
@@ -67,12 +79,35 @@ export const BodyContent = ({ setCollapsed, collapsed }) => {
         <TableWrapper fetchData={fetchDataTree} title="Дерево классификаций" />
       ),
     },
+    {
+      key: "3",
+      label: "Расчет сводных норм",
+      children: (
+        <>
+          <Space direction="vertical" size="middle" style={{ display: "flex" }}>
+            <Select
+              style={{ maxWidth: "30%", minWidth: "25%" }}
+              options={ListIdClassif.options}
+              loading={ListIdClassif.loading}
+              onChange={onSelectChange}
+            />
+            <TableWrapper
+              fetchData={standardData}
+              title="Расчет сводных норм по id классификации"
+            />
+          </Space>
+        </>
+      ),
+    },
   ];
 
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
-
+  function onSelectChange(value) {
+    setStandardData({ loading: true, ...standardData });
+    getSummaryRates(setStandardData, value);
+  }
   async function onFinishAdd(data) {
     const resp = await addClassification(data);
     if (resp.status !== 200) {
@@ -135,16 +170,7 @@ export const BodyContent = ({ setCollapsed, collapsed }) => {
         >
           <Flex gap="middle" wrap>
             <MenuButton collapsed={collapsed} setCollapsed={setCollapsed} />
-            {/* <Button
-              type="text"
-              icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-              onClick={() => setCollapsed(!collapsed)}
-              style={{
-                fontSize: "16px",
-                width: 64,
-                height: 64,
-              }}
-            /> */}
+
             <AddButton
               onClick={() => {
                 setOpenDrawer(true);
