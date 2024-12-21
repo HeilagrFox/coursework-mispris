@@ -3,6 +3,7 @@ import * as ReactDOM from "react-dom/client";
 import "./index.css";
 import { BodyContent } from "./classification-body";
 import { ProductBodyContent } from "./product-body";
+import { SpecBodyContent } from "./spec-body";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { FlexWrapper } from "./flex-main-wrapper";
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -23,6 +24,10 @@ const router = createBrowserRouter(
     {
       path: "/product",
       element: <FlexWrapper BodyContent={<ProductBodyContent />} />,
+    },
+    {
+      path: "/spec",
+      element: <FlexWrapper BodyContent={<SpecBodyContent />} />,
     },
   ],
   { future }

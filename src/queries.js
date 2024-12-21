@@ -135,3 +135,75 @@ export async function copyProductById(productId, productData) {
     return error;
   }
 }
+
+export async function getSpec(setFetchData) {
+  const apiUrl = "http://localhost:5000/spec";
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      const fetchData = response.data;
+      setFetchData({
+        loading: false,
+        dataSource: fetchData.data,
+        columns: fetchData.columns,
+      });
+    })
+    .catch((error) => {
+      console.error("Ошибка при получении данных:", error);
+      setFetchData({ loading: true, dataSource: [], columns: [] });
+    });
+}
+
+export async function getIdProducts(setListIdProduct) {
+  const apiUrl = "http://localhost:5000/spec/id_products";
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      let fetchData = response.data;
+      if (fetchData.data.length !== 0) {
+        const formattedData = fetchData.data.map((input_value, index) => {
+          return {
+            value: input_value.id_product,
+            label: input_value.id_product.toString(),
+          };
+        });
+        console.log("fetch", fetchData);
+        setListIdProduct({
+          loading: false,
+          options: formattedData,
+        });
+      }
+    })
+    .catch((error) => {
+      console.error("Ошибка при получении данных:", error);
+      setListIdProduct({ loading: true, options: [] });
+    });
+}
+
+export async function getSpecIdProducts(setFetchData, productId) {
+  const apiUrl = "http://localhost:5000/spec/" + productId;
+  axios
+    .get(apiUrl)
+    .then((response) => {
+      const fetchData = response.data;
+      setFetchData({
+        loading: false,
+        dataSource: fetchData.data,
+        columns: fetchData.columns,
+      });
+    })
+    .catch((error) => {
+      console.error("Ошибка при получении данных:", error);
+      setFetchData({ loading: false, dataSource: [], columns: [] });
+    });
+}
+export async function addSpec(specData) {
+  const apiUrl = "http://localhost:5000/spec";
+  try {
+    const response = await axios.post(apiUrl, specData);
+    return response; // Возвращаем данные, если успешный запрос
+  } catch (error) {
+    console.error("Ошибка при отправке данных:", error);
+    return error;
+  }
+}

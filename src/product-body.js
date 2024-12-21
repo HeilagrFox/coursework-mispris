@@ -10,12 +10,7 @@ import { getProduct } from "./queries";
 import { Flex, Layout, theme, Form, Modal, Button } from "antd";
 import { TableWrapper } from "./table-wrapper";
 import { DrawerWrapper } from "./drawer-wrapper";
-import {
-  addProduct,
-  deleteProductById,
-  updateProductById,
-  copyProductById,
-} from "./queries";
+import { addProduct, deleteProductById, updateProductById } from "./queries";
 export const ProductBodyContent = ({ setCollapsed, collapsed }) => {
   const { Header, Content } = Layout;
   const [fetchData, setFetchData] = useState({
@@ -39,6 +34,7 @@ export const ProductBodyContent = ({ setCollapsed, collapsed }) => {
   const { contextHolder, openNotificationWithIcon } = useNotification();
 
   async function onFinishAdd(data) {
+    console.log(data);
     const resp = await addProduct(data);
     if (resp.status !== 200) {
       openNotificationWithIcon(resp.message);

@@ -1,4 +1,8 @@
-import { UserOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import {
+  FileTextOutlined,
+  BranchesOutlined,
+  ProductOutlined,
+} from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Layout, Menu } from "antd";
 
@@ -7,7 +11,14 @@ const { Sider } = Layout;
 export const BaseSider = ({ collapsed }) => {
   const host = window.location.origin;
   const location = useLocation();
-  const selectedKey = location.pathname === "/product" ? "2" : "1";
+  let defaultSelectedKey = "1";
+  if (location.pathname === "/product") {
+    defaultSelectedKey = "2";
+  }
+  if (location.pathname === "/spec") {
+    defaultSelectedKey = "3";
+  }
+  const selectedKey = defaultSelectedKey;
   return (
     <Sider trigger={null} collapsible collapsed={collapsed}>
       <div className="demo-logo-vertical" />
@@ -19,20 +30,19 @@ export const BaseSider = ({ collapsed }) => {
         items={[
           {
             key: "1",
-            icon: <UserOutlined />,
+            icon: <BranchesOutlined />,
             label: <Link to="/">Классификации</Link>,
           },
           {
             key: "2",
-            icon: <VideoCameraOutlined />,
+            icon: <ProductOutlined />,
             label: <Link to={host + "/product"}>Продукты</Link>,
           },
-
-          //   {
-          //     key: "3",
-          //     icon: <UploadOutlined />,
-          //     label: "nav 3",
-          //   },
+          {
+            key: "3",
+            icon: <FileTextOutlined />,
+            label: <Link to={host + "/spec"}> Спецификация</Link>,
+          },
         ]}
       />
     </Sider>

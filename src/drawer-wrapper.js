@@ -9,6 +9,7 @@ export const DrawerWrapper = ({
   form,
   requiredFields,
   inputNotNumberFields,
+  exclude_last_element = false,
 }) => {
   useEffect(() => {
     if (form) {
@@ -27,44 +28,36 @@ export const DrawerWrapper = ({
       >
         <Form form={form} onFinish={onFinish} autoComplete="on">
           {fetchData && fetchData.columns
-            ? fetchData.columns.slice(1).map((value, index) => {
-                return (
-                  <Form.Item
-                    key={value.title}
-                    name={value.title}
-                    label={value.title}
-                    // shouldUpdate={
-                    //   (prevValues, curValues) =>
-                    //     console.log(curValues, classificationRow)
-                    //   //   prevValues !== curValues
-                    // }
-                    // initialValue={
-                    //   classificationRow
-                    //     ? Object.values(initialValues)[index + 1]
-                    //     : ""
-                    // }
-                    rules={[
-                      {
-                        required: requiredFields?.some(
-                          (field) => field.toLowerCase() === value.title
-                        ),
-                      },
-                    ]}
-                  >
-                    {inputNotNumberFields?.some(
-                      (field) => field.toLowerCase() === value.title
-                    ) ? (
-                      <Input />
-                    ) : (
-                      <InputNumber
-                        style={{ width: "100%" }}
-                        min={1}
-                        maxLength={9}
-                      />
-                    )}
-                  </Form.Item>
-                );
-              })
+            ? fetchData.columns
+                .slice(1, exclude_last_element ? -1 : fetchData?.columns.length)
+                .map((value, index) => {
+                  return (
+                    <Form.Item
+                      key={value.title}
+                      name={value.title}
+                      label={value.title}
+                      rules={[
+                        {
+                          required: requiredFields?.some(
+                            (field) => field.toLowerCase() === value.title
+                          ),
+                        },
+                      ]}
+                    >
+                      {inputNotNumberFields?.some(
+                        (field) => field.toLowerCase() === value.title
+                      ) ? (
+                        <Input />
+                      ) : (
+                        <InputNumber
+                          style={{ width: "100%" }}
+                          min={1}
+                          maxLength={9}
+                        />
+                      )}
+                    </Form.Item>
+                  );
+                })
             : null}
           {fetchData && fetchData.columns ? (
             <Flex gap={"middle"} justify={"flex-end"} align={"flex-end"}>
